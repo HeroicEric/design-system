@@ -105,6 +105,33 @@ When the content area does not consist of a contained component (ie. text block,
 
 Tabs will fill 100% of the parent container, unless explicitly set to something else. When there are too many tabs to fit within the TabList, a horizontal scrollbar will help the user navigation hidden tabs.
 
+<Hds::PageHeader as |PH|>
+  <PH.Title>Page title</PH.Title>
+  <PH.IconTile @icon="folder" />
+  <PH.Actions>
+    <Hds::Dropdown as |DD|>
+      <DD.ToggleButton @text="Manage" @color="secondary" />
+      <DD.Interactive @route="components" @text="Item One" />
+      <DD.Interactive @route="components" @text="Item Two" />
+      <DD.Interactive @route="components" @text="Item Three" />
+      <DD.Separator />
+      <DD.Interactive
+        @route="components"
+        @text="Delete"
+        @color="critical"
+        @icon="trash"
+      />
+    </Hds::Dropdown>
+  </PH.Actions>
+  <PH.Generic>
+    <Doc::Placeholder
+      @text="generic metadata"
+      @height="36"
+      @width="350"
+      @background="#eee"
+    />
+  </PH.Generic>
+</Hds::PageHeader>
 <Hds::Tabs class="doc-tabs-demo-overflow" as |T|>
   <T.Tab>The Wonderful Wizard of Oz</T.Tab>
   <T.Tab>The Bell Jar</T.Tab>
