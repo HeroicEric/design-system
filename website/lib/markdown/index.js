@@ -70,6 +70,7 @@ module.exports = {
       'about',
       'foundations',
       'components',
+      'components/table?tab=code',
       'patterns',
       'error',
     ];
