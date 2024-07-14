@@ -70,11 +70,13 @@ export default class ShowController extends Controller {
       return null;
     }
 
-    let tab = this.tabs.find((el) => {
+    const tab = this.tabs.find((el) => {
       // for consistency we always compare the query param tab to a lowercase version of the tab label
       return el.label.toLowerCase() === this.selectedTab;
     });
-    return tab ? tab.index : 0;
+    const index = tab ? tab.index : 0;
+    console.log('tab: ', this.tabs[tab.index].label);
+    return index;
   }
 
   get title() {
@@ -141,8 +143,15 @@ export default class ShowController extends Controller {
         this.didInsertContent();
       });
     }
+    const start = window?.performance?.now();
     const converter = new showdown.Converter(showdownConfig);
-    return converter.makeHtml(this.model.content);
+    const html = converter.makeHtml(this.model.content);
+    const end = window?.performance?.now();
+    if(window?.performance) {
+      const time = end - start;
+      console.log(`Agregate Markdown transformation :: in ${Math.round(time)}ms`);
+    }
+    return html;
   }
 
   didInsertContent = () => {

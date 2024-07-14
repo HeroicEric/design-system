@@ -35,7 +35,13 @@ export default Component.extend({
 
       let compiledTemplate;
       try {
+        const start = window?.performance?.now();
         compiledTemplate = compileTemplate(templateString);
+        const end = window?.performance?.now();
+        if(window?.performance) {
+          const time = end - start;
+          console.log(`Run time compiler :: ${this.componentId} in ${Math.round(time)}ms`);
+        }
       } catch (err) {
         console.error(err);
         console.error(templateString);

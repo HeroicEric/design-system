@@ -48,6 +48,7 @@ const appConfig = {
   // https://github.com/shipshapecode/prember-sitemap-generator#usage
   prember: {
     baseRoot: 'https://helios.hashicorp.design/',
+    urls: ['/'],
   },
 };
 
