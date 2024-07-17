@@ -30,7 +30,6 @@
     "start": "yarn build:packages && ember serve",
     "start:prember": "PREMBER=true ember serve",
     "build:prember": "npm run build && rm -rf dist-prember && mv dist dist-prember",
-    "serve:prember": "http-server dist-prember -p 8080",
     "algolia:index": "node docs-scraper/index-website-content.mjs",
     "test": "npm-run-all lint test:*",
     "test:ember": "yarn build:packages && ember test",
@@ -147,8 +146,5 @@
       "lib/analytics",
       "lib/markdown"
     ]
-  },
-  "dependencies": {
-    "http-server": "^14.1.1"
   }
 }

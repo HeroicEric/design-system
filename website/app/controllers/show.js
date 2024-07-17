@@ -147,9 +147,11 @@ export default class ShowController extends Controller {
     const converter = new showdown.Converter(showdownConfig);
     const html = converter.makeHtml(this.model.content);
     const end = window?.performance?.now();
-    if(window?.performance) {
+    if (window?.performance) {
       const time = end - start;
-      console.log(`Agregate Markdown transformation :: in ${Math.round(time)}ms`);
+      console.log(
+        `Agregate Markdown transformation :: in ${Math.round(time)}ms`
+      );
     }
     return html;
   }
