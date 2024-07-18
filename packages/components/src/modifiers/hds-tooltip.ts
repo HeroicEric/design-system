@@ -192,6 +192,7 @@ export default class HdsTooltipModifier extends Modifier<HdsTooltipModifierSigna
         : [this.hideOnEsc];
 
     return {
+      ...options,
       theme: 'hds',
       triggerTarget: $trigger,
       arrow: `
