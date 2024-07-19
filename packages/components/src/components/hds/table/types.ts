@@ -10,7 +10,6 @@ export enum HdsTableScope {
   Row = 'row',
   Col = 'col',
 }
-
 export interface BaseHdsTableTrArgs {
   Args: {
     isSelectable?: boolean;
@@ -38,4 +37,20 @@ export interface SelectableHdsTableTrArgs extends BaseHdsTableTrArgs {
     selectionScope: HdsTableScope.Row;
     selectionKey: string; // Now required for selectable rows
   };
+}
+
+export enum HdsTableThSortOrder {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
+export enum HdsTableThSortOrderLabels {
+  Asc = 'ascending',
+  Desc = 'descending',
+}
+
+export enum HdsTableThSortOrderIcons {
+  ArrowUp = 'arrow-up',
+  ArrowDown = 'arrow-down',
+  SwapVertical = 'swap-vertical',
 }
