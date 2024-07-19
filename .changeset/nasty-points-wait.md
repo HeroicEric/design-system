@@ -18,4 +18,6 @@
 
 `TableThSelectable` - Converted component to TypeScript
 
+`TableThSort` - Converted component to TypeScript
+
 `TableTr` - Converted component to TypeScript
