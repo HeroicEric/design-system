@@ -85,6 +85,7 @@ import HdsSideNavPortal from './components/hds/side-nav/portal/index.ts';
 import HdsSideNavList from './components/hds/side-nav/list/index.ts';
 import HdsStepperStepIndicator from './components/hds/stepper/step/indicator.ts';
 import HdsStepperTaskIndicator from './components/hds/stepper/task/indicator.ts';
+import HdsTableTh from './components/hds/table/th.ts';
 import HdsTableThButtonTooltip from './components/hds/table/th-button-tooltip.ts';
 import HdsTabs from './components/hds/tabs/index.ts';
 import HdsTag from './components/hds/tag/index.ts';
@@ -176,6 +177,7 @@ export {
   HdsSideNavList,
   HdsStepperStepIndicator,
   HdsStepperTaskIndicator,
+  HdsTableTh,
   HdsTableThButtonTooltip,
   HdsTabs,
   HdsTag,
