@@ -17,6 +17,7 @@ export enum HdsTableThSortOrder {
 export enum HdsTableThSortOrderLabels {
   Asc = 'ascending',
   Desc = 'descending',
+  None = 'none',
 }
 
 export enum HdsTableThSortOrderIcons {

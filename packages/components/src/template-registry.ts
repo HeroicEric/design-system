@@ -103,6 +103,7 @@ import type HdsStepperTaskIndicatorComponent from './components/hds/stepper/task
 import type HdsTableThComponent from './components/hds/table/th.ts';
 import type HdsTableThButtonSortComponent from './components/hds/table/th-button-sort.ts';
 import type HdsTableThButtonTooltipComponent from './components/hds/table/th-button-tooltip';
+import type HdsTableThSortComponent from './components/hds/table/th-sort.ts';
 import type HdsTabsComponent from './components/hds/tabs';
 import type HdsTabsPanelComponent from './components/hds/tabs/panel';
 import type HdsTabsTabComponent from './components/hds/tabs/tab';
@@ -481,6 +482,7 @@ export default interface HdsComponentsRegistry {
   'Hds::Table::Th': typeof HdsTableThComponent;
   'Hds::Table::ThButtonSort': typeof HdsTableThButtonSortComponent;
   'Hds::Table::ThButtonTooltip': typeof HdsTableThButtonTooltipComponent;
+  'Hds::Table::ThSort': typeof HdsTableThSortComponent;
 
   // Tabs
   'Hds::Tabs': typeof HdsTabsComponent;
