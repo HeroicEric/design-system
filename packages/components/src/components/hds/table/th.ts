@@ -23,7 +23,7 @@ export interface HdsTableThArgs {
   Blocks: {
     default: [];
   };
-  Element: HTMLElement;
+  Element: HTMLTableCellElement;
 }
 
 export default class HdsTableThComponent extends Component<HdsTableThArgs> {
