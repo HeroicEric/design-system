@@ -12,7 +12,7 @@ import { HdsTableHorizontalAlignment, HdsTableScope } from './types.ts';
 export const ALIGNMENTS: string[] = Object.values(HdsTableHorizontalAlignment);
 export const DEFAULT_ALIGN = HdsTableHorizontalAlignment.Left;
 
-export interface HdsTableThComponentArgs {
+export interface HdsTableThArgs {
   Args: {
     align: HdsTableHorizontalAlignment;
     isVisuallyHidden?: boolean;
@@ -26,7 +26,7 @@ export interface HdsTableThComponentArgs {
   Element: HTMLElement;
 }
 
-export default class HdsTableThComponent extends Component<HdsTableThComponentArgs> {
+export default class HdsTableThComponent extends Component<HdsTableThArgs> {
   /**
    * Generates a unique ID for the <span> element ("label")
    *
