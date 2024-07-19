@@ -7,10 +7,26 @@ import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
 
-const ALIGNMENTS = ['left', 'center', 'right'];
-const DEFAULT_ALIGN = 'left';
+import { HdsTableHorizontalAlignment, HdsTableScope } from './types.ts';
 
-export default class HdsTableThComponent extends Component {
+export const ALIGNMENTS: string[] = Object.values(HdsTableHorizontalAlignment);
+export const DEFAULT_ALIGN = HdsTableHorizontalAlignment.Left;
+
+export interface HdsTableThComponentArgs {
+  Args: {
+    align: HdsTableHorizontalAlignment;
+    isVisuallyHidden?: boolean;
+    scope?: HdsTableScope;
+    tooltip?: string;
+    width?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+  Element: HTMLElement;
+}
+
+export default class HdsTableThComponent extends Component<HdsTableThComponentArgs> {
   /**
    * Generates a unique ID for the <span> element ("label")
    *
@@ -24,8 +40,8 @@ export default class HdsTableThComponent extends Component {
    * @default left
    * @description Determines the text alignment of the header or cell content. Options are: "left", "center", "right". If no align is defined, "left" is used.
    */
-  get align() {
-    let { align = DEFAULT_ALIGN } = this.args;
+  get align(): string {
+    const { align = DEFAULT_ALIGN } = this.args;
 
     assert(
       `@align for "Hds::Table::Th" must be one of the following: ${ALIGNMENTS.join(
@@ -41,8 +57,8 @@ export default class HdsTableThComponent extends Component {
    * @method classNames
    * @return {string} The "class" attribute to apply to the component.
    */
-  get classNames() {
-    let classes = ['hds-table__th'];
+  get classNames(): string {
+    const classes = ['hds-table__th'];
 
     // add a class based on the @align argument
     if (this.align) {
