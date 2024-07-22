@@ -14,7 +14,7 @@ import {
 export interface HdsTableThButtonSortArgs {
   Args: {
     labelId?: string;
-    onClick?: () => unknown;
+    onClick?: () => void;
     sortOrder?: HdsTableThSortOrder;
   };
   Element: HTMLButtonElement;
@@ -65,7 +65,7 @@ export default class HdsTableThButtonSortComponent extends Component<HdsTableThB
    * @type {function}
    * @default () => {}
    */
-  get onClick(): () => unknown {
+  get onClick(): () => void {
     const { onClick } = this.args;
 
     if (typeof onClick === 'function') {
