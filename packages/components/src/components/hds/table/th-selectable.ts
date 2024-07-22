@@ -7,22 +7,29 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { tracked } from '@glimmer/tracking';
+import { HdsTableScope as HdsTableScopeValues } from './types.ts';
 import type { HdsTableScope } from './types';
 import type { HdsTableThArgs } from './th';
 import type { HdsFormCheckboxBaseSignature } from '../form/checkbox/base';
 
 export interface HdsTableThSelectableArgs {
   Args: {
-    didInsert: (
+    didInsertAll?: (checkbox: HdsFormCheckboxBaseSignature['Element']) => void;
+    didInsertRow?: (
       checkbox: HdsFormCheckboxBaseSignature['Element'],
       selectionKey: string
     ) => void;
     isSelected?: boolean;
-    onSelectionChange?: () => void;
+    onSelectionAllChange?: () => void;
+    onSelectionRowChange?: (
+      checkbox: HdsFormCheckboxBaseSignature['Element'],
+      selectionKey: string
+    ) => void;
     selectionAriaLabelSuffix: string;
     selectionKey: string;
     selectionScope?: HdsTableScope;
-    willDestroyCheckbox?: () => void;
+    willDestroyAll?: () => void;
+    willDestroyRow?: (selectionKey: string) => void;
   };
   Element: HdsTableThArgs['Element'];
 }
@@ -47,14 +54,39 @@ export default class HdsTableThSelectableComponent extends Component<HdsTableThS
   }
 
   @action
-  didInsert(checkbox: HdsFormCheckboxBaseSignature['Element']) {
-    const { didInsert } = this.args;
-    if (typeof didInsert === 'function') {
-      didInsert(checkbox, this.args.selectionKey);
-      // we need to use a custom event listener here because changing the `checked` value via JS
-      // (and this happens with the "select all") doesn't trigger the `change` event
-      // and consequently the `aria-label` won't be automatically updated (and so we have to force it)
-      checkbox.addEventListener(
+  didInsertHandler(checkbox: HdsFormCheckboxBaseSignature['Element']) {
+    if (this.args.selectionScope === HdsTableScopeValues.Col) {
+      const { didInsertAll } = this.args;
+      if (typeof didInsertAll === 'function') {
+        didInsertAll(checkbox);
+      }
+    } else if (this.args.selectionScope === HdsTableScopeValues.Row) {
+      const { didInsertRow } = this.args;
+      if (typeof didInsertRow === 'function') {
+        didInsertRow(checkbox, this.args.selectionKey);
+      }
+    }
+    // we need to use a custom event listener here because changing the `checked` value via JS
+    // (and this happens with the "select all") doesn't trigger the `change` event
+    // and consequently the `aria-label` won't be automatically updated (and so we have to force it)
+    checkbox.addEventListener('toggle', this.updateAriaLabel.bind(this), true);
+  }
+
+  @action
+  willDestroyHandler(checkbox: HdsFormCheckboxBaseSignature['Element']) {
+    if (this.args.selectionScope === HdsTableScopeValues.Col) {
+      const { willDestroyAll } = this.args;
+      if (typeof willDestroyAll === 'function') {
+        willDestroyAll();
+      }
+    } else if (this.args.selectionScope === HdsTableScopeValues.Row) {
+      const { willDestroyRow } = this.args;
+      if (typeof willDestroyRow === 'function') {
+        willDestroyRow(this.args.selectionKey);
+      }
+    }
+    if (checkbox) {
+      checkbox.removeEventListener(
         'toggle',
         this.updateAriaLabel.bind(this),
         true
@@ -63,28 +95,19 @@ export default class HdsTableThSelectableComponent extends Component<HdsTableThS
   }
 
   @action
-  willDestroyNode(checkbox: HdsFormCheckboxBaseSignature['Element']) {
-    const { willDestroyCheckbox } = this.args;
-    if (typeof willDestroyCheckbox === 'function') {
-      willDestroyCheckbox();
-      if (checkbox) {
-        checkbox.removeEventListener(
-          'toggle',
-          this.updateAriaLabel.bind(this),
-          true
-        );
-      }
-    }
-  }
-
-  @action
   onChangeSelection(event: Event) {
-    // Assert event.target as HTMLInputElement to access the 'checked' property
     const target = event.target as HTMLInputElement;
     this.isSelected = target.checked;
-    const { onSelectionChange } = this.args;
-    if (typeof onSelectionChange === 'function') {
-      onSelectionChange();
+    if (this.args.selectionScope === HdsTableScopeValues.Col) {
+      const { onSelectionAllChange } = this.args;
+      if (typeof onSelectionAllChange === 'function') {
+        onSelectionAllChange();
+      }
+    } else if (this.args.selectionScope === HdsTableScopeValues.Row) {
+      const { onSelectionRowChange } = this.args;
+      if (typeof onSelectionRowChange === 'function') {
+        onSelectionRowChange(target, this.args.selectionKey);
+      }
     }
   }
 

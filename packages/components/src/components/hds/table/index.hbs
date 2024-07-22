@@ -15,9 +15,9 @@
       <Hds::Table::Tr
         @selectionScope="col"
         @isSelectable={{@isSelectable}}
-        @onSelectionChange={{this.onSelectionAllChange}}
-        @didInsert={{this.didInsertSelectAllCheckbox}}
-        @willDestroy={{this.willDestroySelectAllCheckbox}}
+        @onSelectionAllChange={{this.onSelectionAllChange}}
+        @didInsertAll={{this.didInsertSelectAllCheckbox}}
+        @willDestroyAll={{this.willDestroySelectAllCheckbox}}
         @selectionAriaLabelSuffix="all rows"
       >
         {{#each @columns as |column|}}
@@ -48,9 +48,9 @@
             "hds/table/tr"
             selectionScope="col"
             isSelectable=@isSelectable
-            onSelectionChange=this.onSelectionAllChange
-            didInsert=this.didInsertSelectAllCheckbox
-            willDestroy=this.willDestroySelectAllCheckbox
+            onSelectionAllChange=this.onSelectionAllChange
+            didInsertAll=this.didInsertSelectAllCheckbox
+            willDestroyAll=this.willDestroySelectAllCheckbox
             selectionAriaLabelSuffix="all rows"
           )
           Th=(component "hds/table/th")
@@ -78,9 +78,9 @@
               "hds/table/tr"
               selectionScope="row"
               isSelectable=@isSelectable
-              onSelectionChange=this.onSelectionRowChange
-              didInsert=this.didInsertRowCheckbox
-              willDestroy=this.willDestroyRowCheckbox
+              onSelectionRowChange=this.onSelectionRowChange
+              didInsertRow=this.didInsertRowCheckbox
+              willDestroyRow=this.willDestroyRowCheckbox
               selectionAriaLabelSuffix=@selectionAriaLabelSuffix
             )
             Th=(component "hds/table/th" scope="row")
@@ -97,9 +97,9 @@
             "hds/table/tr"
             selectionScope="row"
             isSelectable=@isSelectable
-            onSelectionChange=this.onSelectionRowChange
-            didInsert=this.didInsertRowCheckbox
-            willDestroy=this.willDestroyRowCheckbox
+            onSelectionRowChange=this.onSelectionRowChange
+            didInsertRow=this.didInsertRowCheckbox
+            willDestroyRow=this.willDestroyRowCheckbox
             selectionAriaLabelSuffix=@selectionAriaLabelSuffix
           )
           Th=(component "hds/table/th" scope="row")

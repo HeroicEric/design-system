@@ -8,11 +8,14 @@
     <Hds::Table::ThSelectable
       @isSelected={{@isSelected}}
       @selectionScope={{@selectionScope}}
-      @selectionKey={{this.selectionKey}}
-      @selectionAriaLabelSuffix={{@selectionAriaLabelSuffix}}
-      @didInsert={{@didInsert}}
-      @willDestroyCheckbox={{@willDestroy}}
-      @onSelectionChange={{@onSelectionChange}}
+      @selectionKey={{if this.selectionKey this.selectionKey ""}}
+      @selectionAriaLabelSuffix={{if @selectionAriaLabelSuffix @selectionAriaLabelSuffix ""}}
+      @didInsertAll={{@didInsertAll}}
+      @didInsertRow={{@didInsertRow}}
+      @willDestroyAll={{@willDestroyAll}}
+      @willDestroyRow={{@willDestroyRow}}
+      @onSelectionAllChange={{@onSelectionAllChange}}
+      @onSelectionRowChange={{@onSelectionRowChange}}
     />
   {{/if}}
 

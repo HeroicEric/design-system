@@ -102,6 +102,7 @@ import type HdsStepperStepIndicatorComponent from './components/hds/stepper/step
 import type HdsStepperTaskIndicatorComponent from './components/hds/stepper/task/indicator';
 import type HdsTableTdComponent from './components/hds/table/td.ts';
 import type HdsTableThComponent from './components/hds/table/th.ts';
+import type HdsTableTrComponent from './components/hds/table/tr.ts';
 import type HdsTableThButtonSortComponent from './components/hds/table/th-button-sort.ts';
 import type HdsTableThButtonTooltipComponent from './components/hds/table/th-button-tooltip';
 import type HdsTableThSelectableComponent from './components/hds/table/th-selectable.ts';
@@ -483,6 +484,7 @@ export default interface HdsComponentsRegistry {
   // Table
   'Hds::Table::Td': typeof HdsTableTdComponent;
   'Hds::Table::Th': typeof HdsTableThComponent;
+  'Hds::Table::Tr': typeof HdsTableTrComponent;
   'Hds::Table::ThButtonSort': typeof HdsTableThButtonSortComponent;
   'Hds::Table::ThButtonTooltip': typeof HdsTableThButtonTooltipComponent;
   'Hds::Table::ThSelectable': typeof HdsTableThSelectableComponent;

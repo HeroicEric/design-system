@@ -67,11 +67,11 @@ module('Integration | Component | hds/table/tr', function (hooks) {
   test('it should invoke the `onSelectionChange` callback when the checkbox is selected', async function (assert) {
     let key;
     this.set(
-      'onSelectionChange',
+      'onSelectionRowChange',
       (_checkbox, selectionKey) => (key = selectionKey)
     );
     await render(
-      hbs`<Hds::Table::Tr id="data-test-table-tr" @isSelectable={{true}} @selectionScope="row" @selectionKey="row123" @onSelectionChange={{this.onSelectionChange}} />`
+      hbs`<Hds::Table::Tr id="data-test-table-tr" @isSelectable={{true}} @selectionScope="row" @selectionKey="row123" @onSelectionChange={{this.onSelectionRowChange}} />`
     );
     await click(checkboxSelector);
     assert.strictEqual(key, 'row123');

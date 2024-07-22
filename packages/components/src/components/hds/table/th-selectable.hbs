@@ -9,8 +9,8 @@
     class="hds-table__checkbox"
     checked={{@isSelected}}
     aria-label={{this.ariaLabel}}
-    {{did-insert this.didInsert}}
-    {{will-destroy this.willDestroyNode}}
+    {{did-insert this.didInsertHandler}}
+    {{will-destroy this.willDestroyHandler}}
     {{on "change" this.onChangeSelection}}
   />
 </Hds::Table::Th>
