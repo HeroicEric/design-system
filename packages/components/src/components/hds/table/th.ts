@@ -14,7 +14,7 @@ export const DEFAULT_ALIGN = HdsTableHorizontalAlignment.Left;
 
 export interface HdsTableThArgs {
   Args: {
-    align: HdsTableHorizontalAlignment;
+    align?: HdsTableHorizontalAlignment;
     isVisuallyHidden?: boolean;
     scope?: HdsTableScope;
     tooltip?: string;

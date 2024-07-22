@@ -7,8 +7,27 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { tracked } from '@glimmer/tracking';
+import type { HdsTableScope } from './types';
+import type { HdsTableThArgs } from './th';
+import type { HdsFormCheckboxBaseSignature } from '../form/checkbox/base';
 
-export default class HdsTableThSelectableComponent extends Component {
+export interface HdsTableThSelectableArgs {
+  Args: {
+    didInsert: (
+      checkbox: HdsFormCheckboxBaseSignature['Element'],
+      selectionKey: string
+    ) => void;
+    isSelected?: boolean;
+    onSelectionChange?: () => void;
+    selectionAriaLabelSuffix: string;
+    selectionKey: string;
+    selectionScope?: HdsTableScope;
+    willDestroyCheckbox?: () => void;
+  };
+  Element: HdsTableThArgs['Element'];
+}
+
+export default class HdsTableThSelectableComponent extends Component<HdsTableThSelectableArgs> {
   @tracked isSelected = this.args.isSelected;
 
   /**
@@ -18,7 +37,7 @@ export default class HdsTableThSelectableComponent extends Component {
   checkboxId = 'checkbox-' + guidFor(this);
 
   get ariaLabel() {
-    let { selectionAriaLabelSuffix } = this.args;
+    const { selectionAriaLabelSuffix } = this.args;
     const prefix = this.isSelected ? 'Deselect' : 'Select';
     if (selectionAriaLabelSuffix) {
       return `${prefix} ${selectionAriaLabelSuffix}`;
@@ -28,8 +47,8 @@ export default class HdsTableThSelectableComponent extends Component {
   }
 
   @action
-  didInsert(checkbox) {
-    let { didInsert } = this.args;
+  didInsert(checkbox: HdsFormCheckboxBaseSignature['Element']) {
+    const { didInsert } = this.args;
     if (typeof didInsert === 'function') {
       didInsert(checkbox, this.args.selectionKey);
       // we need to use a custom event listener here because changing the `checked` value via JS
@@ -44,11 +63,10 @@ export default class HdsTableThSelectableComponent extends Component {
   }
 
   @action
-  willDestroy(checkbox) {
-    super.willDestroy(...arguments);
-    let { willDestroy } = this.args;
-    if (typeof willDestroy === 'function') {
-      willDestroy(this.args.selectionKey);
+  willDestroyNode(checkbox: HdsFormCheckboxBaseSignature['Element']) {
+    const { willDestroyCheckbox } = this.args;
+    if (typeof willDestroyCheckbox === 'function') {
+      willDestroyCheckbox();
       if (checkbox) {
         checkbox.removeEventListener(
           'toggle',
@@ -60,16 +78,19 @@ export default class HdsTableThSelectableComponent extends Component {
   }
 
   @action
-  onSelectionChange(event) {
-    this.isSelected = event.target.checked;
-    let { onSelectionChange } = this.args;
+  onChangeSelection(event: Event) {
+    // Assert event.target as HTMLInputElement to access the 'checked' property
+    const target = event.target as HTMLInputElement;
+    this.isSelected = target.checked;
+    const { onSelectionChange } = this.args;
     if (typeof onSelectionChange === 'function') {
-      onSelectionChange(event.target, this.args.selectionKey);
+      onSelectionChange();
     }
   }
 
-  updateAriaLabel(event) {
-    // updating the `isSelected` value will trigger the update of the `aria-label` value via the `ariaLabel` getter
-    this.isSelected = event.target.checked;
+  updateAriaLabel(event: Event) {
+    // Assert event.target as HTMLInputElement to access the 'checked' property
+    const target = event.target as HTMLInputElement;
+    this.isSelected = target.checked;
   }
 }
