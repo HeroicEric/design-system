@@ -87,6 +87,7 @@ import HdsStepperStepIndicator from './components/hds/stepper/step/indicator.ts'
 import HdsStepperTaskIndicator from './components/hds/stepper/task/indicator.ts';
 import HdsTableTh from './components/hds/table/th.ts';
 import HdsTableThButtonTooltip from './components/hds/table/th-button-tooltip.ts';
+import HdsTableThSelectable from './components/hds/table/th-selectable.ts';
 import HdsTabs from './components/hds/tabs/index.ts';
 import HdsTag from './components/hds/tag/index.ts';
 import HdsText from './components/hds/text/index.ts';
@@ -179,6 +180,7 @@ export {
   HdsStepperTaskIndicator,
   HdsTableTh,
   HdsTableThButtonTooltip,
+  HdsTableThSelectable,
   HdsTabs,
   HdsTag,
   HdsText,

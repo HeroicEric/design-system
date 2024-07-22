@@ -11,3 +11,5 @@
 `TableTh` - Converted component to TypeScript
 
 `TableThButtonTooltip` - Converted component to TypeScript
+
+`TableThSelectable` - Converted component to TypeScript
