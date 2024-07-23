@@ -18,7 +18,7 @@ export const DEFAULT_ALIGN = HdsTableHorizontalAlignment.Left;
 
 export interface HdsTableThSortArgs {
   Args: {
-    align: HdsTableHorizontalAlignment;
+    align: HdsTableHorizontalAlignment | undefined;
     onClickSort?: () => void;
     sortOrder?: HdsTableThSortOrder;
     tooltip?: string;

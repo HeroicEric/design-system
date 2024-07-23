@@ -483,12 +483,19 @@ export default interface HdsComponentsRegistry {
 
   // Table
   'Hds::Table::Td': typeof HdsTableTdComponent;
+  'hds/table/td': typeof HdsTableTdComponent;
   'Hds::Table::Th': typeof HdsTableThComponent;
+  'hds/table/th': typeof HdsTableThComponent;
   'Hds::Table::Tr': typeof HdsTableTrComponent;
+  'hds/table/tr': typeof HdsTableTrComponent;
   'Hds::Table::ThButtonSort': typeof HdsTableThButtonSortComponent;
+  'hds/table/th-button-sort': typeof HdsTableThButtonSortComponent;
   'Hds::Table::ThButtonTooltip': typeof HdsTableThButtonTooltipComponent;
+  'hds/table/th-button-tooltip': typeof HdsTableThButtonTooltipComponent;
   'Hds::Table::ThSelectable': typeof HdsTableThSelectableComponent;
+  'hds/table/th-selectable': typeof HdsTableThSelectableComponent;
   'Hds::Table::ThSort': typeof HdsTableThSortComponent;
+  'hds/table/th-sort': typeof HdsTableThSortComponent;
 
   // Tabs
   'Hds::Tabs': typeof HdsTabsComponent;

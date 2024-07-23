@@ -13,8 +13,8 @@
   <thead class="hds-table__thead">
     {{#if @columns}}
       <Hds::Table::Tr
-        @selectionScope="col"
-        @isSelectable={{@isSelectable}}
+        @selectionScope={{this.selectionScopeCol}}
+        @isSelectable={{true}}
         @onSelectionAllChange={{this.onSelectionAllChange}}
         @didInsertAll={{this.didInsertSelectAllCheckbox}}
         @willDestroyAll={{this.willDestroySelectAllCheckbox}}
@@ -46,7 +46,7 @@
         (hash
           Tr=(component
             "hds/table/tr"
-            selectionScope="col"
+            selectionScope=this.selectionScopeCol
             isSelectable=@isSelectable
             onSelectionAllChange=this.onSelectionAllChange
             didInsertAll=this.didInsertSelectAllCheckbox
@@ -76,14 +76,14 @@
           (hash
             Tr=(component
               "hds/table/tr"
-              selectionScope="row"
+              selectionScope=this.selectionScopeRow
               isSelectable=@isSelectable
               onSelectionRowChange=this.onSelectionRowChange
               didInsertRow=this.didInsertRowCheckbox
               willDestroyRow=this.willDestroyRowCheckbox
               selectionAriaLabelSuffix=@selectionAriaLabelSuffix
             )
-            Th=(component "hds/table/th" scope="row")
+            Th=(component "hds/table/th" scope=this.selectionScopeRow)
             Td=(component "hds/table/td" align=@align)
             data=record
           )
@@ -95,14 +95,14 @@
         (hash
           Tr=(component
             "hds/table/tr"
-            selectionScope="row"
+            selectionScope=this.selectionScopeRow
             isSelectable=@isSelectable
             onSelectionRowChange=this.onSelectionRowChange
             didInsertRow=this.didInsertRowCheckbox
             willDestroyRow=this.willDestroyRowCheckbox
             selectionAriaLabelSuffix=@selectionAriaLabelSuffix
           )
-          Th=(component "hds/table/th" scope="row")
+          Th=(component "hds/table/th" scope=this.selectionScopeRow)
           Td=(component "hds/table/td" align=@align)
           sortBy=this.sortBy
           sortOrder=this.sortOrder
