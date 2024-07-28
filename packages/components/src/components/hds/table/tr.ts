@@ -8,7 +8,6 @@ import { assert } from '@ember/debug';
 import type { HdsTableScope } from './types';
 import { HdsTableScope as HdsTableScopeValues } from './types.ts';
 import type { HdsFormCheckboxBaseSignature } from '../form/checkbox/base';
-
 export interface BaseHdsTableTrArgs {
   Args: {
     isSelectable?: boolean;
