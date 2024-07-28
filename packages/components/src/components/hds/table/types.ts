@@ -1,4 +1,19 @@
-import type { HdsFormCheckboxBaseSignature } from '../form/checkbox/base';
+export type HdsTableColumn = {
+  align?: HdsTableHorizontalAlignment | undefined;
+  key: string;
+  label: string;
+  isSortable?: boolean;
+  isVisuallyHidden?: boolean;
+  sortingFunction?: HdsTableSortingFunction<unknown>;
+  tooltip?: string;
+  width?: string;
+};
+
+export enum HdsTableDensities {
+  Short = 'short',
+  Medium = 'medium',
+  Tall = 'tall',
+}
 
 export enum HdsTableHorizontalAlignment {
   Left = 'left',
@@ -6,37 +21,15 @@ export enum HdsTableHorizontalAlignment {
   Right = 'right',
 }
 
+export enum HdsTableVerticalAlignment {
+  Top = 'top',
+  Middle = 'middle',
+  Baseline = 'baseline',
+}
+
 export enum HdsTableScope {
   Row = 'row',
   Col = 'col',
-}
-export interface BaseHdsTableTrArgs {
-  Args: {
-    isSelectable?: boolean;
-    isSelected?: false;
-    selectionAriaLabelSuffix?: string;
-    selectionKey?: string | undefined;
-    selectionScope: HdsTableScope;
-    didInsert: (
-      checkbox: HdsFormCheckboxBaseSignature['Element'],
-      selectionKey: string | undefined
-    ) => void;
-    onSelectionChange: () => void;
-    willDestroy: () => void;
-  };
-  Blocks: {
-    default: [];
-  };
-  Element: HTMLTableRowElement;
-}
-
-// Extended interface for selectable rows
-export interface SelectableHdsTableTrArgs extends BaseHdsTableTrArgs {
-  Args: BaseHdsTableTrArgs['Args'] & {
-    isSelectable: true;
-    selectionScope: HdsTableScope.Row;
-    selectionKey: string; // Now required for selectable rows
-  };
 }
 
 export enum HdsTableThSortOrder {
@@ -55,3 +48,9 @@ export enum HdsTableThSortOrderIcons {
   ArrowDown = 'arrow-down',
   SwapVertical = 'swap-vertical',
 }
+export interface HdsTableSelectableRow {
+  selectionKey: string;
+  checkbox: HTMLInputElement | undefined;
+}
+
+export type HdsTableSortingFunction<T> = (a: T, b: T) => number;

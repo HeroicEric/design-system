@@ -46,7 +46,7 @@
         (hash
           Tr=(component
             "hds/table/tr"
-            selectionScope="col"
+            selectionScope=this.selectionScopeCol
             isSelectable=@isSelectable
             onSelectionChange=this.onSelectionAllChange
             didInsert=this.didInsertSelectAllCheckbox
@@ -76,14 +76,14 @@
           (hash
             Tr=(component
               "hds/table/tr"
-              selectionScope="row"
+              selectionScope=this.selectionScopeRow
               isSelectable=@isSelectable
               onSelectionChange=this.onSelectionRowChange
               didInsert=this.didInsertRowCheckbox
               willDestroy=this.willDestroyRowCheckbox
               selectionAriaLabelSuffix=@selectionAriaLabelSuffix
             )
-            Th=(component "hds/table/th" scope="row")
+            Th=(component "hds/table/th" scope=this.selectionScopeRow)
             Td=(component "hds/table/td" align=@align)
             data=record
           )
@@ -95,14 +95,14 @@
         (hash
           Tr=(component
             "hds/table/tr"
-            selectionScope="row"
+            selectionScope=this.selectionScopeRow
             isSelectable=@isSelectable
             onSelectionChange=this.onSelectionRowChange
             didInsert=this.didInsertRowCheckbox
             willDestroy=this.willDestroyRowCheckbox
             selectionAriaLabelSuffix=@selectionAriaLabelSuffix
           )
-          Th=(component "hds/table/th" scope="row")
+          Th=(component "hds/table/th" scope=this.selectionScopeRow)
           Td=(component "hds/table/td" align=@align)
           sortBy=this.sortBy
           sortOrder=this.sortOrder

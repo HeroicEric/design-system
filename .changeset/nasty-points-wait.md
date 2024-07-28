@@ -8,6 +8,8 @@
 
 `TooltipModifier` - Converted modifier to TypeScript
 
+`Table` - Converted component to TypeScript
+
 `TableTd` - Converted component to TypeScript
 
 `TableTh` - Converted component to TypeScript
