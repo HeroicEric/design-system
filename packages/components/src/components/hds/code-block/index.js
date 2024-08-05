@@ -152,12 +152,11 @@ export default class HdsCodeBlockIndexComponent extends Component {
 
   @action
   updateCodeBlock() {
+    if (!this.textarea || !this.codeElement) return;
+
     const text = this.textarea.value;
     const normalizedCode = this.normalizeWhitespace(text);
-
-    if (this.codeElement) {
-      this.processCode(normalizedCode, this.codeElement);
-    }
+    this.processCode(normalizedCode, this.codeElement);
   }
 
   /**
