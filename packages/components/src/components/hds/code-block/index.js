@@ -103,35 +103,66 @@ export default class HdsCodeBlockIndexComponent extends Component {
 
   @action
   setPrismCode(element) {
-    const code = this.code;
+    this.processCode(this.code, element);
+  }
+
+  processCode(code, element) {
     const language = this.language;
     const grammar = Prism.languages[language];
 
-    if (code) {
-      next(() => {
-        if (language && grammar) {
-          this.prismCode = htmlSafe(Prism.highlight(code, grammar, language));
-        } else {
-          this.prismCode = htmlSafe(Prism.util.encode(code));
-        }
+    if (!code) return;
 
-        // Force prism-line-numbers plugin initialization, required for Prism.highlight usage
-        // See https://github.com/PrismJS/prism/issues/1234
-        Prism.hooks.run('complete', {
-          code,
-          element,
-        });
+    next(() => {
+      if (language && grammar) {
+        this.prismCode = htmlSafe(Prism.highlight(code, grammar, language));
+      } else {
+        this.prismCode = htmlSafe(Prism.util.encode(code));
+      }
 
-        // Force prism-line-highlight plugin initialization
-        // Context: https://github.com/hashicorp/design-system/pull/1749#discussion_r1374288785
-        if (this.args.highlightLines) {
-          // we need to delay re-evaluating the context for prism-line-highlight for as much as possible, and `afterRender` is the 'latest' we can use in the component lifecycle
-          schedule('afterRender', () => {
-            // we piggy-back on the plugin's `resize` event listener to trigger a new call of the `highlightLines` function: https://github.com/PrismJS/prism/blob/master/plugins/line-highlight/prism-line-highlight.js#L337
-            if (window) window.dispatchEvent(new Event('resize'));
-          });
-        }
+      // Force prism-line-numbers plugin initialization, required for Prism.highlight usage
+      // See https://github.com/PrismJS/prism/issues/1234
+      Prism.hooks.run('complete', {
+        code,
+        element,
       });
+
+      // Force prism-line-highlight plugin initialization
+      // Context: https://github.com/hashicorp/design-system/pull/1749#discussion_r1374288785
+      if (this.args.highlightLines) {
+        // we need to delay re-evaluating the context for prism-line-highlight for as much as possible, and `afterRender` is the 'latest' we can use in the component lifecycle
+        schedule('afterRender', () => {
+          // we piggy-back on the plugin's `resize` event listener to trigger a new call of the `highlightLines` function: https://github.com/PrismJS/prism/blob/master/plugins/line-highlight/prism-line-highlight.js#L337
+          if (window) window.dispatchEvent(new Event('resize'));
+        });
+      }
+    });
+  }
+
+  get tabindex() {
+    return this.args.editable ? -1 : 0;
+  }
+
+  @action
+  handleInput(event) {
+    const textarea = event.target;
+    const text = textarea.value;
+    this.update(text, textarea);
+  }
+
+  update(text, textarea) {
+    let normalizedCode;
+    if (Prism?.plugins?.NormalizeWhitespace) {
+      normalizedCode = Prism.plugins.NormalizeWhitespace.normalize(text);
+    } else {
+      normalizedCode = text;
+    }
+
+    const parentElement = textarea.parentElement;
+    const preElement = parentElement.querySelector('pre');
+    const codeElement = preElement.querySelector('code');
+
+    if (codeElement) {
+      this.processCode(normalizedCode, codeElement);
     }
   }
 
@@ -155,6 +186,10 @@ export default class HdsCodeBlockIndexComponent extends Component {
 
     if (this.hasLineWrapping === true) {
       classes.push('hds-code-block--has-line-wrapping');
+    }
+
+    if (this.args.editable) {
+      classes.push('hds-code-block--editable');
     }
 
     // Note: Prism.js is using the specific class name "line-numbers" to determine implementation of line numbers in the UI

@@ -10,14 +10,22 @@
     {{~yield (hash Description=(component "hds/code-block/description"))~}}
   </div>
   <div class="hds-code-block__body">
+    {{#if @editable}}
+      <textarea {{on "input" this.handleInput}} spellcheck="false"></textarea>
+    {{/if}}
     {{! content within pre tag is whitespace-sensitive; do not add new lines! }}
     <pre
       class="hds-code-block__code"
       {{style maxHeight=@maxHeight}}
       data-line={{@highlightLines}}
       id={{this.preCodeId}}
-      tabindex="0"
-    ><code {{did-insert this.setPrismCode}} {{did-update this.setPrismCode this.code @language}}>
+      tabindex={{this.tabindex}}
+      aria-hidden={{if @editable "true" "false"}}
+    ><code
+        {{did-insert this.setPrismCode}}
+        {{did-update this.setPrismCode this.code @language}}
+        tabindex={{this.tabindex}}
+      >
         {{~this.prismCode~}}
       </code></pre>
 

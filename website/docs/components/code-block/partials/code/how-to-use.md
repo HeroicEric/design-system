@@ -57,6 +57,7 @@ Set `hasCopyButton` to `true` to display a button for users to copy `CodeBlock` 
   @hasCopyButton={{true}}
   @value="let codeLang=`JavaScript`;
 console.log(`I am ${codeLang} code`);"
+@editable=true
 />
 ```
 
