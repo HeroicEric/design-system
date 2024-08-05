@@ -143,18 +143,20 @@ export default class HdsCodeBlockIndexComponent extends Component {
   }
 
   @action
-  updateCodeBlock(event) {
-    const textarea = event.target;
-    const text = textarea.value;
+  cacheElements(element) {
+    this.textarea = element;
+    const parentElement = element.parentElement;
+    const preElement = parentElement.querySelector('pre');
+    this.codeElement = preElement.querySelector('code');
+  }
 
+  @action
+  updateCodeBlock() {
+    const text = this.textarea.value;
     const normalizedCode = this.normalizeWhitespace(text);
 
-    const parentElement = textarea.parentElement;
-    const preElement = parentElement.querySelector('pre');
-    const codeElement = preElement.querySelector('code');
-
-    if (codeElement) {
-      this.processCode(normalizedCode, codeElement);
+    if (this.codeElement) {
+      this.processCode(normalizedCode, this.codeElement);
     }
   }
 
