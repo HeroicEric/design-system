@@ -54,11 +54,7 @@ export default class HdsCodeBlockIndexComponent extends Component {
       code !== undefined
     );
 
-    if (Prism?.plugins?.NormalizeWhitespace) {
-      return Prism.plugins.NormalizeWhitespace.normalize(code);
-    }
-
-    return code;
+    return this.normalizeWhitespace(code);
   }
 
   /**
@@ -101,23 +97,31 @@ export default class HdsCodeBlockIndexComponent extends Component {
     return this.args.hasLineWrapping ?? false;
   }
 
+  get tabindex() {
+    return this.args.editable ? -1 : 0;
+  }
+
   @action
   setPrismCode(element) {
     this.processCode(this.code, element);
   }
 
+  normalizeWhitespace(code) {
+    return Prism?.plugins?.NormalizeWhitespace
+      ? Prism.plugins.NormalizeWhitespace.normalize(code)
+      : code;
+  }
+
   processCode(code, element) {
+    if (!code) return;
+
     const language = this.language;
     const grammar = Prism.languages[language];
 
-    if (!code) return;
-
     next(() => {
-      if (language && grammar) {
-        this.prismCode = htmlSafe(Prism.highlight(code, grammar, language));
-      } else {
-        this.prismCode = htmlSafe(Prism.util.encode(code));
-      }
+      language && grammar
+        ? (this.prismCode = htmlSafe(Prism.highlight(code, grammar, language)))
+        : (this.prismCode = htmlSafe(Prism.util.encode(code)));
 
       // Force prism-line-numbers plugin initialization, required for Prism.highlight usage
       // See https://github.com/PrismJS/prism/issues/1234
@@ -138,24 +142,12 @@ export default class HdsCodeBlockIndexComponent extends Component {
     });
   }
 
-  get tabindex() {
-    return this.args.editable ? -1 : 0;
-  }
-
   @action
-  handleInput(event) {
+  updateCodeBlock(event) {
     const textarea = event.target;
     const text = textarea.value;
-    this.update(text, textarea);
-  }
 
-  update(text, textarea) {
-    let normalizedCode;
-    if (Prism?.plugins?.NormalizeWhitespace) {
-      normalizedCode = Prism.plugins.NormalizeWhitespace.normalize(text);
-    } else {
-      normalizedCode = text;
-    }
+    const normalizedCode = this.normalizeWhitespace(text);
 
     const parentElement = textarea.parentElement;
     const preElement = parentElement.querySelector('pre');

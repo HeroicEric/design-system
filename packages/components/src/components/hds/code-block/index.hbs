@@ -11,7 +11,7 @@
   </div>
   <div class="hds-code-block__body">
     {{#if @editable}}
-      <textarea {{on "input" this.handleInput}} spellcheck="false"></textarea>
+      <textarea {{on "input" this.updateCodeBlock}} spellcheck="false"></textarea>
     {{/if}}
     {{! content within pre tag is whitespace-sensitive; do not add new lines! }}
     <pre
