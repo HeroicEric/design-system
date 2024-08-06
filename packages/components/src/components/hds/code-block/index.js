@@ -155,7 +155,11 @@ export default class HdsCodeBlockIndexComponent extends Component {
     if (!this.textarea || !this.codeElement) return;
 
     const text = this.textarea.value;
-    const normalizedCode = this.normalizeWhitespace(text);
+    let normalizedCode = this.normalizeWhitespace(text);
+    if (normalizedCode[normalizedCode.length - 1] == '\n') {
+      // If the last character is a newline character
+      normalizedCode += ' '; // Add a placeholder space character to the final line
+    }
     this.processCode(normalizedCode, this.codeElement);
   }
 
